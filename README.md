@@ -1,4 +1,4 @@
-Name: M. Arsyad Avmeilputra
+Name: Muhammad Arsyad Avmeilputra
 
 
 
