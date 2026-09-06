@@ -6,7 +6,7 @@
 
 :root {
     --ink: #1c1917;
-    --paper: #faf6f0;
+    --paper: #fffffe;
     --accent: #d95d39;
     --accent-dark: #a8442a;
     --line: #e3d9c9;
@@ -169,7 +169,7 @@ h1, .brand {
     border: 3px solid var(--ink);
 }
 
-.hero-skills {
+.spacing {
     padding: 0 0 5rem;
 }
 
@@ -181,13 +181,36 @@ h1, .brand {
     display: flex;
     justify-content: left;
     padding: 2rem 4rem;
-    font-size: 3rem;
+    font-size: 5rem;
 }
 
 .hero-skills-list {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 4rem;
+}
+
+.skills-box {
+    padding: 1rem;
+    border: 3px solid black;
+    border-radius: 12px;
+}
+
+.hero-projects-box {
+    display: block;
+}
+
+.hero-projects-title {
+    display: flex;
+    justify-content: right;
+    padding: 2rem 4rem;
+    font-size: 5rem;
+}
+
+.hero-projects-list {
+    display: flex;
+    justify-content: left;
+    padding: 0 4rem;
 }
 
 .site-footer {
