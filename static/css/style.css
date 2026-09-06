@@ -70,7 +70,7 @@ h1, .brand {
     grid-template-areas:
         "identity photo"
         "details  photo";
-    gap: 1.5rem 3rem;
+    gap: 1.5rem 2rem;
 }
 
 .hero-identity {
@@ -167,6 +167,27 @@ h1, .brand {
     object-fit: cover;
     border-radius: var(--radius);
     border: 3px solid var(--ink);
+}
+
+.hero-skills {
+    padding: 0 0 5rem;
+}
+
+.hero-skills-block {
+    display: block;
+}
+
+.hero-skills-title {
+    display: flex;
+    justify-content: left;
+    padding: 2rem 4rem;
+    font-size: 3rem;
+}
+
+.hero-skills-list {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
 }
 
 .site-footer {
