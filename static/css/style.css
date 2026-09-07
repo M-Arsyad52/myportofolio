@@ -6,7 +6,7 @@
 
 :root {
     --ink: #1c1917;
-    --sky: #c2d6f6;
+    --sky: #7ca7ec;
     --paper: #fffffe;
     --accent: #d95d39;
     --line: #e3d9c9;
@@ -28,11 +28,15 @@ h1, .brand {
 .container {
     max-width: 960px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
 }
 
 .site-header {
+    position: sticky;
+    background-color: white;
+    top: 0;
     border-bottom: 1px solid var(--line);
+    z-index: 2;
 }
 
 .site-header .container {
@@ -54,16 +58,21 @@ h1, .brand {
     gap: 2rem;
 }
 
+
 .site-header nav a {
     color: var(--ink);
     text-decoration: none;
     font-size: 0.95rem;
 }
 
+nav a:hover {
+    color: var(--sky);
+}
+
 /*Jumbotron*/
 #jumbotron {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--sky);
     align-content: center;
     margin-bottom: 3rem;
@@ -88,28 +97,30 @@ h1, .brand {
     height: 150px;
 }
 
-.section-spacing {
-    padding: 4rem 0 3rem;
-}
-
-/*Profile*/
+/*PROFILE*/
 #profile {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     align-content: center;
+    background-color: white;
 }
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
+    grid-template-columns: 1fr 1.3fr;
     grid-template-areas:
-        "identity photo"
-        "details  photo";
+        "photo identity"
+        "photo details";
     gap: 1.5rem 2rem;
 }
 
 .hero-identity {
     grid-area: identity;
+    display: flex;
+    align-content: center;
+    padding: 2rem;
+    background-color: var(--sky);
+    color: white;
 }
 
 .hero-details {
@@ -117,7 +128,7 @@ h1, .brand {
 }
 
 .hero-kicker {
-    font-size: 0.85rem;
+    font-size: 1rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-weight: 700;
@@ -133,16 +144,18 @@ h1, .brand {
     color: var(--text-muted);
     max-width: 480px;
     margin-bottom: 1.5rem;
+    font-size: 1rem;
 }
 
 .meta-list {
     display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
     margin-bottom: 1.5rem;
 }
 
 .meta-row dt {
-    font-size: 0.75rem;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--text-muted);
@@ -151,6 +164,7 @@ h1, .brand {
 
 .meta-row dd {
     font-weight: 600;
+    font-size: 1rem;
 }
 
 .social-links {
@@ -165,97 +179,143 @@ h1, .brand {
     font-weight: 600;
     text-decoration: none;
     color: var(--paper);
-    background-color: var(--ink);
-    border-radius: var(--radius);
+    background-color: var(--sky);
+    border: 2px solid white;
+    border-radius: 5px;
     padding: 0.5rem 1.1rem;
     transition: background-color 0.2s ease;
 }
 
 .social-link:hover {
-    background-color: var(--accent);
+    background-color: white;
+    color: var(--sky);
+    border:2px solid var(--sky);
+    border-radius: 5px;
 }
 
 .hero-photo {
     grid-area: photo;
-    align-self: center;
-    position: relative;
 }
 
 .avatar {
-    position: relative;
     z-index: 1;
-    display: block;
-    width: 100%;
+    max-width: 100%;
+    height: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: var(--radius);
-    border: 3px solid var(--ink);
 }
 
-/*Skills*/
+/*SKILLS*/
 #skills {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    align-content: center;
+    
+}
+
+.skills-group {
+    display: block;
+    
+}
+
+.skills-title-group{
+    display: flex;
     align-content: center;
 }
 
-.hero-skills-block {
-    display: block;
-    align-items: center;
+.skills-title-background {
+    position: relative;
+    background-color: var(--sky);
+    left: -200px;
+    width: 430px;
+    height: 130px;
+    z-index: 0;
 }
 
-.hero-skills-title {
-    display: flex;
-    justify-content: left;
+.skills-title {
+    position: absolute;
     font-size: 5rem;
+    z-index: 1;
+    color: white;
 }
 
-.hero-skills-list {
+.skills-list {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 4rem;
+    padding: 3rem 2rem;
+}
+
+.skills-content {
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    color: var(--sky);
+    background-color: white;
+    border: 3px solid var(--sky);
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+.skills-content:hover {
+    transform: scale(1.1);
+    color: white;
+        background-color: var(--sky);
+}
+
+/*PROJECTS*/
+#projects {
+    width: 100%;
+    min-height: 100vh;
+    align-content: center;
+    background-color: var(--sky);
+}
+
+.projects-group {
+    display: block;
+}
+
+.projects-title-group {
+    display: flex;
+    align-content: center;
+    justify-content: right;
+}
+
+.projects-title-background {
+    position: relative;
+    background-color: white;
+    right: -168px;
+    width: 515px;
+    height: 130px;
+    z-index: 0;
+}
+
+.projects-title {
+    position: absolute;
+    font-size: 5rem;
+    z-index: 1;
+    color: var(--sky);
+}
+
+.projects-list {
+    display: flex;
+    justify-content: right;
     padding: 3rem 0;
 }
 
-.skills-box {
+.projects-contents {
     padding: 1rem;
-    border: 3px solid black;
+    color: white;
+    border: 3px solid white;
     border-radius: 12px;
-    transition: 0.4s;
-}
-.skills-box:hover {
-    transform: scale(1.2);
+    transition: transform 0.4s ease;
 }
 
-/*Projects*/
-#projects {
-    width: 100%;
-    height: 100vh;
-    align-content: center;
+.projects-contents:hover {
+    transform: scale(1.2)
 }
 
-.hero-projects-block {
-    display: block;
-}
-
-.hero-projects-title {
-    display: flex;
-    justify-content: right;
-    padding: 2rem 4rem;
-    font-size: 5rem;
-}
-
-.hero-projects-list {
-    display: flex;
-    justify-content: right;
-    padding: 0 1rem;
-}
-
-.hero-projects-box {
-    padding: 1rem;
-    border: 3px solid black;
-    border-radius: 12px;
-}
-
+/*FOOTERr*/
 .site-footer {
     padding: 1.5rem;
     color: var(--text-muted);
@@ -267,16 +327,24 @@ h1, .brand {
     .hero-grid {
         grid-template-columns: 1fr;
         grid-template-areas:
-            "identity"
-            "photo"
-            "details";
+            "identity identity"
+            "photo details";
+        padding: 2rem 2rem 5rem;
     }
 
-    .hero-photo {
-        max-width: 220px;
+    .hero-identity {
+    display: flex;
+    align-content: center;
+    padding: 2rem;
     }
 
-    .social-links {
-        justify-content: flex-start;
+    .avatar{
+        min-width: 200px;
+    }
+
+
+    .skills-list {
+    flex-direction: column;
+    width: 100%;
     }
 }
