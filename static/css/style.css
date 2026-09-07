@@ -211,7 +211,6 @@ nav a:hover {
     width: 100%;
     min-height: 100vh;
     align-content: center;
-    
 }
 
 .skills-group {
@@ -222,19 +221,22 @@ nav a:hover {
 .skills-title-group{
     display: flex;
     align-content: center;
+    justify-content: left;
 }
 
 .skills-title-background {
     position: relative;
+    display: flex;
     background-color: var(--sky);
-    left: -200px;
-    width: 430px;
+    width: 350px;
     height: 130px;
     z-index: 0;
 }
 
 .skills-title {
     position: absolute;
+    padding-left: 8rem;
+    width: 100%;
     font-size: 5rem;
     z-index: 1;
     color: white;
@@ -267,25 +269,26 @@ nav a:hover {
 #projects {
     width: 100%;
     min-height: 100vh;
-    align-content: center;
     background-color: var(--sky);
+    align-content: center;
 }
 
 .projects-group {
     display: block;
+    
 }
 
 .projects-title-group {
     display: flex;
     align-content: center;
     justify-content: right;
+    right: 0;
 }
 
 .projects-title-background {
     position: relative;
     background-color: white;
-    right: -168px;
-    width: 515px;
+    width: 400px;
     height: 130px;
     z-index: 0;
 }
@@ -293,30 +296,34 @@ nav a:hover {
 .projects-title {
     position: absolute;
     font-size: 5rem;
+    padding-right: 3.8rem;
     z-index: 1;
     color: var(--sky);
 }
 
 .projects-list {
     display: flex;
-    justify-content: right;
+    justify-content: center;
+    width: 100%;
     padding: 3rem 0;
 }
 
 .projects-contents {
+    width: 90%;
     padding: 1rem;
     color: white;
     border: 3px solid white;
     border-radius: 12px;
-    transition: transform 0.4s ease;
+    transition: transform 0.2s ease;
 }
 
 .projects-contents:hover {
-    transform: scale(1.2)
+    transform: scale(1.1)
 }
 
 /*FOOTERr*/
 .site-footer {
+    text-align: center;
     padding: 1.5rem;
     color: var(--text-muted);
     font-size: 0.85rem;
