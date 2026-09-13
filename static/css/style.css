@@ -300,21 +300,40 @@ nav a:hover {
 .projects-list {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     width: 100%;
     padding: 3rem 0;
+    gap: 2rem 0;
 }
 
-.projects-contents {
+.projects-content-title {
+    border-bottom: 2px solid white;
+    margin-bottom: 1rem;
+}
+
+.projects-content {
     width: 90%;
     padding: 1rem;
     color: white;
+    background-color: var(--sky);
     border: 3px solid white;
     border-radius: 12px;
     transition: transform 0.2s ease;
 }
 
-.projects-contents:hover {
-    transform: scale(1.1)
+.projects-content:hover {
+    transform: scale(1.1);
+}
+
+.empty-state-project {
+    color: white;
+}
+
+/*EXPERIENCE*/
+#experience {
+    width: 100%;
+    min-height: 100vh;
+    align-content: center;
 }
 
 .experience-section {
@@ -330,39 +349,77 @@ nav a:hover {
     text-transform: uppercase;
 }
 
-.experience-section h1 {
-    margin: 0.4rem 0 1.5rem;
-    font-size: 2rem;
+.experience-title-group{
+    display: flex;
+    align-content: center;
+    justify-content: left;
 }
 
-.experience-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
+.experience-title-background {
+    position: relative;
+    display: flex;
+    background-color: var(--sky);
+    width: 500px;
+    height: 130px;
+    z-index: 0;
 }
 
-.experience-card {
+.experience-title {
+    position: absolute;
+    padding-left: 2.5rem;
+    width: 100%;
+    font-size: 5rem;
+    z-index: 1;
+    color: white;
+}
+
+.experience-list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 3rem 0;
+    gap: 2rem 0;
+}
+
+.experience-content-title {
+    border-bottom: 2px solid var(--sky);
+    margin-bottom: 1rem;
+}
+
+.experience-content1 {
+    width: 70%;
+    justify-self: left;
+    background-color: white;
     padding: 1.25rem;
-    background-color: #fff;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+    color: var(--sky);
+    border: 3px solid var(--sky);
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+
+.experience-content2 {
+    width: 70%;
+    justify-content: right;
+    background-color: white;
+    padding: 1.25rem;
+    color: var(--sky);
+    border: 3px solid var(--sky);
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+
+.experience-content1:hover {
+    transform: scale(1.1);
+}
+
+.experience-content2:hover {
+    transform: scale(1.1);
 }
 
 .experience-category {
-    color: var(--accent-dark);
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-}
-
-.experience-card h2 {
-    margin: 0.5rem 0;
-    font-size: 1.25rem;
-}
-
-.experience-description,
-.empty-state {
-    color: var(--text-muted);
 }
 
 .experience-status {
