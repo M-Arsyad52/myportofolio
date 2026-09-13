@@ -12,10 +12,11 @@
 <body>
     <header class="site-header">
         <div class="container">
-            <a href="#profile" class="brand">{{ name }}</a>
+            <a href="#profile" class="brand">{{ initial_name }}</a>
             <nav>
                 <a href="{% url 'main:show_main' %}">Profile</a>
                 <a href="{% url 'main:show_experience' %}">Experience</a>
+                <a href="{% url 'main:show_project' %}">Project</a>
             </nav>
         </div>
     </header>
@@ -44,7 +45,7 @@
                     <div class="hero-identity-background"></div>
                     <div class="hero-identity-name">
                         <p class="hero-kicker">Computer Science &middot; University of Indonesia</p>
-                        <h1>{{ name }}</h1>
+                        <h1>{{ full_name }}</h1>
                     </div>
                 </div>
                 <div class="hero-photo">
@@ -77,7 +78,7 @@
                 <div class="skills-title-background"></div>
                 <h1 class="skills-title">Skills</h1>
             </div>
-            <div class="container skills-group">
+            <div class="container">
                 <div class="skills-list">
                     <div class="skills-content"> 
                         <h2>Compassion</h2>
@@ -120,7 +121,7 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2026 {{ name }}. Faculty of Computer Science, University of Indonesia.</p>
+            <p>&copy; 2026 {{ middle_name }}. Faculty of Computer Science, University of Indonesia.</p>
         </div>
     </footer>
 </body>
