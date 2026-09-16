@@ -17,6 +17,8 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+CSRF_TRUSTED_ORIGINS = ["https://muhammad-arsyad52-myportofolio.pws.cs.ui.ac.id/"]
+
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "muhammad-arsyad52-myportofolio.pws.cs.ui.ac.id"]
 
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'

@@ -27,6 +27,24 @@
                 <div class="projects-title-background"></div>
                 <h1 class="projects-title">Projects</h1>
             </div>
+            <div class="project-header container">
+                <a href="{% url 'main:create_project' %}"
+                    class="button project-add-button">
+                    <span aria-hidden="true">+</span>
+                    Add Project
+                </a>
+            </div>
+            <form method="get"
+                      action="{% url 'main:show_project' %}"
+                      class="project-search container">
+                    <input type="search"
+                           name="title"
+                           value="{{ title_query }}"
+                           placeholder="Find project name"
+                           class="project-search__input"
+                           aria-label="Find project name">
+                    <button type="submit" class="button">Cari</button>
+                </form>
             <div class="container projects-group">
                 <div class="projects-list">
                     {% for project in project_list %}
@@ -34,10 +52,13 @@
                         <h2 class="projects-content-title">{{ project.title }}</h2>
                         <p>{{ project.description }}</p>
                     </div>
+                    {% include "components/project_delete_modal.html" with project=project %}
                     {% empty %}
-                        <p class="empty-state-project">
-                            No project has been added yet.
-                        </p>
+                        {% if title_query %}
+                            <p class="empty-state-project">No project is found.</p>
+                        {% else %}
+                            <p class="empty-state-project">No project has been added yet.</p>
+                        {% endif %}    
                     {% endfor %}
                     <div class="projects-content">
                             <h2>COMING SOON...</h2>
