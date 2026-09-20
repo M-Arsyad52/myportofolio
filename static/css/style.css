@@ -265,6 +265,7 @@ nav a:hover {
 #projects {
     width: 100%;
     min-height: 100vh;
+    padding: 3rem 0;
     background-color: var(--sky);
     align-content: center;
 }
@@ -308,7 +309,7 @@ nav a:hover {
 
 .projects-content-title {
     border-bottom: 2px solid white;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .projects-content {
@@ -321,114 +322,29 @@ nav a:hover {
     transition: transform 0.2s ease;
 }
 
-.projects-content:hover {
-    transform: scale(1.1);
+
+.projects-status {
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: var(--sky);
+    background-color: white;
+    width: 10%;
+    padding: 0.3rem 0;
+    margin-top:0.8rem;
 }
 
 .empty-state-project {
     color: white;
 }
 
-/*EXPERIENCE*/
-#experience {
-    width: 100%;
-    min-height: 100vh;
-    align-content: center;
-}
-
-.experience-section {
-    padding: 4rem 0;
-    border-top: 1px solid var(--line);
-}
-
-.section-kicker {
-    color: var(--accent-dark);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.experience-title-group{
-    display: flex;
-    align-content: center;
-    justify-content: left;
-}
-
-.experience-title-background {
-    position: relative;
-    display: flex;
-    background-color: var(--sky);
-    width: 500px;
-    height: 130px;
-    z-index: 0;
-}
-
-.experience-title {
-    position: absolute;
-    padding-left: 2.5rem;
-    width: 100%;
-    font-size: 5rem;
-    z-index: 1;
-    color: white;
-}
-
-.experience-list {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 3rem 0;
-    gap: 2rem 0;
-}
-
-.experience-content-title {
-    border-bottom: 2px solid var(--sky);
-    margin-bottom: 1rem;
-}
-
-.experience-content1 {
-    width: 70%;
-    justify-self: left;
-    background-color: white;
-    padding: 1.25rem;
-    color: var(--sky);
-    border: 3px solid var(--sky);
-    border-radius: 12px;
-    transition: transform 0.2s ease;
-}
-
-.experience-content2 {
-    width: 70%;
-    justify-content: right;
-    background-color: white;
-    padding: 1.25rem;
-    color: var(--sky);
-    border: 3px solid var(--sky);
-    border-radius: 12px;
-    transition: transform 0.2s ease;
-}
-
-.experience-content1:hover {
-    transform: scale(1.1);
-}
-
-.experience-content2:hover {
-    transform: scale(1.1);
-}
-
-.experience-category {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.experience-status {
-    margin-top: 1rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
 /*PROJECT_FORM*/
+#form {
+    width: 100%;
+    align-content: center;
+    padding: 4rem 0;
+}
+
 .project-form {
     width: 100%;
     max-width: 100%;
@@ -450,7 +366,7 @@ nav a:hover {
     width: 100%;
     box-sizing: border-box;
     padding: 0.7rem;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--sky);
     border-radius: var(--radius);
     font: inherit;
     transition:
@@ -460,8 +376,8 @@ nav a:hover {
 
 .form-group input:focus,
 .form-group textarea:focus {
-    outline: 2px solid var(--accent);
-    border-color: var(--accent);
+    outline: 2px solid var(--sky);
+    border-color: var(--sky);
 }
 
 .form-error {
@@ -470,31 +386,56 @@ nav a:hover {
     margin-top: 0.35rem;
 }
 
+.form-button-group {
+    display: flex;
+    gap: 1rem;
+}
+
 .button {
     display: inline-block;
     height: fit-content;
     border: 0;
     border-radius: var(--radius);
     padding: 0.65rem 1rem;
-    background: var(--accent);
-    color: white;
+    background: white;
+    color: var(--sky);
     cursor: pointer;
     font: inherit;
     font-weight: 700;
     text-decoration: none;
+    transition: transform 0.4s ease;
+}
+.button:hover {
+    transform: scale(1.1);
+}
+
+.button-main {
+    background-color: var(--sky);
+    color: white;
+    border: 2px solid var(--sky);
 }
 
 .button-secondary {
-    background: var(--ink);
+    border: 2px solid var(--sky);
 }
 
-/*TEMPORARY PROJECT*/
+.button-danger {
+    color: rgb(228, 95, 95);
+    border: 2px solid rgb(228, 95, 95);
+}
+
+.button-danger:hover {
+    color: white;
+    background-color: rgb(228, 95, 95);
+}
+
 .project-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
+    margin-top: 3rem;
     margin-bottom: 1.5rem;
 }
 
@@ -548,8 +489,9 @@ nav a:hover {
 }
 
 .project-search__input:focus {
-    outline: 2px solid var(--accent);
-    border-color: var(--accent);
+    outline: 2px solid var(--sky);
+    border-color: var(--sky);
+    
 }
 
 .project-actions {
@@ -649,6 +591,101 @@ nav a:hover {
     justify-content: flex-end;
     gap: 0.75rem;
     margin-top: 1.5rem;
+}
+
+
+/*EXPERIENCE*/
+#experience {
+    width: 100%;
+    min-height: 100vh;
+    align-content: center;
+}
+
+.section-kicker {
+    color: var(--accent-dark);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.experience-title-group{
+    display: flex;
+    align-content: center;
+    justify-content: left;
+}
+
+.experience-title-background {
+    position: relative;
+    display: flex;
+    background-color: var(--sky);
+    width: 500px;
+    height: 130px;
+    z-index: 0;
+}
+
+.experience-title {
+    position: absolute;
+    padding-left: 2.5rem;
+    width: 100%;
+    font-size: 5rem;
+    z-index: 1;
+    color: white;
+}
+
+.experience-list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 3rem 0;
+    gap: 2rem 0;
+}
+
+.experience-content-title {
+    border-bottom: 2px solid var(--sky);
+    margin-bottom: 1rem;
+}
+
+.experience-content1 {
+    width: 70%;
+    justify-self: left;
+    background-color: white;
+    padding: 1.25rem;
+    color: var(--sky);
+    border: 3px solid var(--sky);
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+
+.experience-content2 {
+    width: 70%;
+    justify-content: right;
+    background-color: white;
+    padding: 1.25rem;
+    color: var(--sky);
+    border: 3px solid var(--sky);
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+
+.experience-content1:hover {
+    transform: scale(1.1);
+}
+
+.experience-content2:hover {
+    transform: scale(1.1);
+}
+
+.experience-category {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.experience-status {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
 }
 
 @media (max-width: 600px) {

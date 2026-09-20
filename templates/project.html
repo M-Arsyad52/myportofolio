@@ -1,26 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experience - {{ name }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <header class="site-header">
-        <div class="container">
-            <a href="{% url 'main:show_main' %}" class="brand">{{ initial_name }}</a>
-            <nav>
-                <a href="{% url 'main:show_main' %}">Profile</a>
-                <a href="{% url 'main:show_experience' %}">Experience</a>
-                <a href="{% url 'main:show_project' %}">Project</a>
-            </nav>
-        </div>
-    </header>
-
+{% extends 'base.html' %}
+{% block content %}
     <main>
         <section id="projects">
             <div class="projects-title-group">
@@ -43,14 +22,21 @@
                            placeholder="Find project name"
                            class="project-search__input"
                            aria-label="Find project name">
-                    <button type="submit" class="button">Cari</button>
+                    <button type="submit" class="button">Find</button>
                 </form>
             <div class="container projects-group">
                 <div class="projects-list">
                     {% for project in project_list %}
                     <div class="projects-content">
                         <h2 class="projects-content-title">{{ project.title }}</h2>
-                        <p>{{ project.description }}</p>
+                        <h3>{{ project.type }} Project</h3>
+                        <p>{{ project.tech_stack }}</p>
+                        <p class="projects-content-desc">{{ project.description }}</p>
+                        {% if project.is_ongoing %}
+                                <p class="projects-status">Ongoing</p>
+                            {% else %}
+                                <p class="projects-status">Completed</p>
+                            {% endif %}
                     </div>
                     {% include "components/project_delete_modal.html" with project=project %}
                     {% empty %}
@@ -60,18 +46,8 @@
                             <p class="empty-state-project">No project has been added yet.</p>
                         {% endif %}    
                     {% endfor %}
-                    <div class="projects-content">
-                            <h2>COMING SOON...</h2>
-                    </div>
                 </div>
             </div>
         </section>
     </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 {{ middle_name }}. Faculty of Computer Science, University of Indonesia.</p>
-        </div>
-    </footer>
-</body>
-</html>
+{% endblock content %}

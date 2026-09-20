@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.utils import timezone
 
 
 class Experience(models.Model):
@@ -36,8 +37,10 @@ class Experience(models.Model):
 class Project(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255)
+    type = models.CharField(max_length=20,)
     description = models.TextField()
-    started_at = models.DateTimeField(auto_now_add=True)
+    tech_stack = models.CharField(max_length=255, default="")
+    started_at = models.DateTimeField(default=timezone.now)
     ended_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
@@ -45,4 +48,6 @@ class Project(models.Model):
 
     @property
     def is_ongoing(self):
-        return self.ended_at is None
+        if self.ended_at is None:
+             return True
+        return self.ended_at > timezone.now()
