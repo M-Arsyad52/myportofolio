@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.models import ModelForm
 from django.forms.widgets import TextInput, Textarea
-from main.models import Project
+from main.models import Project, Experience
 
 
 class ProjectForm(ModelForm):
@@ -49,6 +49,37 @@ class ProjectForm(ModelForm):
                 format='%Y-%m-%dT%H:%M',
                 attrs={
                     "type": "datetime-local", "class": "form-control"
+                }
+            ),
+        }
+
+class ExperienceForm(ModelForm):
+    class Meta:
+        model = Experience
+        fields = ["title", "description", "category"]
+
+        labels = {
+            "title": "Experience Name",
+            "description": "Experience Description",
+            "category": "Experience Category",
+        }
+
+        widgets = {
+            "title": TextInput(
+                attrs={
+                    "placeholder": "e.g., Hackathon",
+                        "maxlength": 255,
+                }
+            ),
+            "category": TextInput(
+                attrs={
+                    "placeholder": "e.g., Competition"
+                }
+            ),
+            "description": Textarea(
+                attrs={
+                    "placeholder": "Tell us about your experience",
+                        "rows": 3,
                 }
             ),
         }

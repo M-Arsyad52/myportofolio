@@ -21,10 +21,9 @@ class Experience(models.Model):
     category = models.CharField(
         max_length=20,
         choices=EXPERIENCE_CHOICES,
-        default="full-time",
     )
     thumbnail = models.URLField(blank=True, null=True)
-    started_at = models.DateTimeField(auto_now_add=True)
+    started_at = models.DateTimeField(default=timezone.now)
     ended_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
@@ -32,7 +31,9 @@ class Experience(models.Model):
 
     @property
     def is_ongoing(self):
-        return self.ended_at is None
+        if self.ended_at is None:
+            return True
+        return self.ended_at > timezone.now()
 
 class Project(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -49,5 +50,5 @@ class Project(models.Model):
     @property
     def is_ongoing(self):
         if self.ended_at is None:
-             return True
+            return True
         return self.ended_at > timezone.now()
