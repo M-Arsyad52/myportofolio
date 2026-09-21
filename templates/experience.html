@@ -7,9 +7,9 @@
                 <h1 class="experience-title">Experience</h1>
             </div>
 
-            <div class="project-header container">
+            <div class="experience-header container">
                 <a href="{% url 'main:create_experience' %}"
-                    class="button project-add-button">
+                    class="button experience-add-button">
                     <span aria-hidden="true">+</span>
                     Add Experience
                 </a>
@@ -17,14 +17,14 @@
 
             <form method="get"
                       action="{% url 'main:show_experience' %}"
-                      class="project-search container">
+                      class="experience-search container">
                     <input type="search"
                            name="title"
                            value="{{ title_query }}"
                            placeholder="Find experience name"
-                           class="project-search__input"
+                           class="experience-search__input"
                            aria-label="Find experience name">
-                    <button type="submit" class="button">Find</button>
+                    <button type="submit" class="button button-find">Find</button>
             </form>
 
             <div class="container experience-group">

@@ -31,3 +31,21 @@ The difference between the URLs of an application and a project is that the appl
 
 
 3. When applying change to the Model file, 'makemigrations' creates the migration files. It acknowledges the changes that happened to the Model. As for 'migrate' it applies the changes to the database. Without the 'migrate' command, it only knows what are the changes but does not implement it. An example is adding a new page such as Project. In the Model, we create a Project class with its descriptions (id, title, description, etc.). To apply this new change, we run both 'makemigrations' and 'migrate' commands. 
+
+
+### Assignment 3
+
+1. Django’s ModelForm makes the developing process for forms more convinient. It has its own file which is 'forms.py' that allows developer to focus more when writing form codes (seperated form the HTML file) and reduces code redundancy. It also handles backend validation, where it automatically catches an error when user inputs a wrong input type to a field.
+
+The {% csrf_token %} is a security measure for any form with POST requests. It generates a unique token/code. When a form is submitted, Django checks this token to guarantee that the data is actually coming from the user's website, not a malicious third-party script.
+
+2. There are several reasons. First, JSON is easier to read since it is cleaner compared to XML that has a dense tree structure. Second, it is lighter in size because it uses simple key-value pairs. Lastly, it integrates smoothly with JavaScript without needing further conversion process, where JavaScript has been relied heavily in nowadays web development.
+
+3. Flow:
+    1) The browser requests a specific URL.
+    2) Django's urls.py routes the request to the correct view function.
+    3) The view queries the database using the Django ORM.
+    4) The view serializes that database query into a JSON format.
+    5) The view wraps the JSON in an HttpResponse and sends it back over the internet to the browser.
+
+The reason serialization process is required because it acts as a translation step. It removes all the complex Python logic and converts the raw data (which are Python objects received from querying the database) into a standard text (JSON) that any system can receive and understand.
