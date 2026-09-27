@@ -261,8 +261,165 @@ nav a:hover {
         background-color: var(--sky);
 }
 
+/* UNIVERSAL (search bars, buttons) */
+.button {
+    display: inline-block;
+    width: auto;
+    height: fit-content;
+    border: 0;
+    border-radius: var(--radius);
+    background-color: white;
+    padding: 0.65rem 1rem;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.4s ease;
+}
+.button:hover {
+    transform: scale(1.1);
+}
+
+.button-color1 {
+    background-color: white;
+    color: var(--sky);
+}
+
+.button-color2 {
+    background-color: var(--sky);
+    color: white;
+}
+
+.add-button-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.add-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.add-button span {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.search-bar {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.search-bar__input {
+    width: 100%;
+    min-width: 0;
+    padding: 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: white;
+    color: var(--ink);
+    font: inherit;
+}
+
+.search-bar__input:focus {
+    outline: 2px solid var(--sky);
+    border-color: var(--sky);
+    
+}
+
+.actions-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.actions-group .button {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.delete-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 1rem;
+    border: 0;
+    background: transparent;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-modal:popover-open {
+    display: flex;
+}
+
+.delete-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    background: rgba(28, 25, 23, 0.58);
+    cursor: default;
+}
+
+.delete-modal__content {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 480px);
+    padding: 1.5rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 1rem 3rem rgba(28, 25, 23, 0.22);
+}
+
+.delete-modal__content h2 {
+    margin: 0 0 0.75rem;
+    font-family:
+        "Space Grotesk",
+        -apple-system,
+        sans-serif;
+    font-size: 1.5rem;
+}
+
+.delete-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.delete-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
 /*PROJECTS*/
-#projects {
+#project {
     width: 100%;
     min-height: 100vh;
     padding: 3rem 0;
@@ -270,19 +427,19 @@ nav a:hover {
     align-content: center;
 }
 
-.projects-group {
+.project-group {
     display: block;
     
 }
 
-.projects-title-group {
+.project-title-group {
     display: flex;
     align-content: center;
     justify-content: right;
     right: 0;
 }
 
-.projects-title-background {
+.project-title-background {
     position: relative;
     background-color: white;
     width: 400px;
@@ -290,7 +447,7 @@ nav a:hover {
     z-index: 0;
 }
 
-.projects-title {
+.project-title {
     position: absolute;
     font-size: 5rem;
     padding-right: 3.8rem;
@@ -298,7 +455,7 @@ nav a:hover {
     color: var(--sky);
 }
 
-.projects-list {
+.project-list {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -307,12 +464,12 @@ nav a:hover {
     gap: 2rem 0;
 }
 
-.projects-content-title {
+.project-content-title {
     border-bottom: 2px solid white;
     margin-bottom: 0.5rem;
 }
 
-.projects-content {
+.project-content {
     width: 90%;
     padding: 1rem;
     color: white;
@@ -323,7 +480,7 @@ nav a:hover {
 }
 
 
-.projects-status {
+.project-status {
     text-align: center;
     font-weight: bold;
     font-size: 0.8rem;
@@ -391,24 +548,6 @@ nav a:hover {
     gap: 1rem;
 }
 
-.button {
-    display: inline-block;
-    height: fit-content;
-    border: 0;
-    border-radius: var(--radius);
-    padding: 0.65rem 1rem;
-    background: white;
-    color: var(--sky);
-    cursor: pointer;
-    font: inherit;
-    font-weight: 700;
-    text-decoration: none;
-    transition: transform 0.4s ease;
-}
-.button:hover {
-    transform: scale(1.1);
-}
-
 .button-main {
     background-color: var(--sky);
     color: white;
@@ -430,53 +569,6 @@ nav a:hover {
 }
 
 /*PROJECT FORM, ADD, SEARCH DELETE*/
-.project-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-}
-
-.project-header h1 {
-    margin-bottom: 0;
-}
-
-.project-add-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-}
-
-.project-add-button span {
-    font-size: 1.25rem;
-    line-height: 1;
-}
-
-.project-search {
-    display: flex;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-}
-
-.project-search__input {
-    width: 100%;
-    min-width: 0;
-    padding: 0.7rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: #fff;
-    color: var(--ink);
-    font: inherit;
-}
-
-.project-search__input:focus {
-    outline: 2px solid var(--sky);
-    border-color: var(--sky);
-    
-}
 
 .project-actions {
     display: flex;
@@ -504,79 +596,6 @@ nav a:hover {
 .project-actions .experience-status {
     margin-top: 0;
 }
-
-.project-delete-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    max-height: none;
-    margin: 0;
-    padding: 1rem;
-    border: 0;
-    background: transparent;
-    z-index: 10;
-    align-items: center;
-    justify-content: center;
-}
-
-.project-delete-modal:popover-open {
-    display: flex;
-}
-
-.project-delete-modal__backdrop {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    padding: 0;
-    background: rgba(28, 25, 23, 0.58);
-    cursor: default;
-}
-
-.project-delete-modal__content {
-    position: relative;
-    z-index: 1;
-    width: min(100%, 480px);
-    padding: 1.5rem;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: 0 1rem 3rem rgba(28, 25, 23, 0.22);
-}
-
-.project-delete-modal__content h2 {
-    margin: 0 0 0.75rem;
-    font-family:
-        "Space Grotesk",
-        -apple-system,
-        sans-serif;
-    font-size: 1.5rem;
-}
-
-.project-delete-modal__close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    border: 0;
-    padding: 0;
-    background: transparent;
-    color: var(--text-muted);
-    font-size: 1.8rem;
-    line-height: 1;
-    cursor: pointer;
-}
-
-.project-delete-modal__actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-}
-
 
 /*EXPERIENCE*/
 #experience {
@@ -667,79 +686,20 @@ nav a:hover {
     text-transform: uppercase;
 }
 
-.experience-status {
-    margin-top: 1rem;
-    font-size: 0.85rem;
-    font-weight: 600;
+.empty-state-experience {
+    color: var(--sky);
 }
 
 /*EXPERIENCE FORM, ADD, SEARCH DELETE*/
-.experience-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-}
 
-.experience-header h1 {
-    margin-bottom: 0;
-}
-
-.experience-add-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
+.add-button-experience {
     background-color: var(--sky);
     color: white;
 }
 
-.experience-add-button span {
-    font-size: 1.25rem;
-    line-height: 1;
-}
-
-.experience-search {
-    display: flex;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-}
-
-.button-find {
+.find-button-experience {
     background-color: var(--sky);
     color: white;
-}
-
-.experience-search__input {
-    width: 100%;
-    min-width: 0;
-    padding: 0.7rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: white;
-    color: var(--ink);
-    font: inherit;
-}
-
-.experience-search__input:focus {
-    outline: 2px solid var(--sky);
-    border-color: var(--sky);
-    
-}
-
-.experience-actions {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 1rem;
-}
-
-.experience-actions .button {
-    font-size: 0.85rem;
-    font-weight: 600;
 }
 
 .experience-card-actions {
@@ -752,85 +712,13 @@ nav a:hover {
     display: none !important;
 }
 
-.experience-actions .experience-status {
+.experience-status {
     margin-top: 0;
 }
 
-.experience-button-delete {
+.delete-button-experience {
     background-color: var(--sky);
     color: white;
-}
-
-.experience-delete-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    max-height: none;
-    margin: 0;
-    padding: 1rem;
-    border: 0;
-    background: transparent;
-    z-index: 10;
-    align-items: center;
-    justify-content: center;
-}
-
-.experience-delete-modal:popover-open {
-    display: flex;
-}
-
-.experience-delete-modal__backdrop {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    padding: 0;
-    background: rgba(28, 25, 23, 0.58);
-    cursor: default;
-}
-
-.experience-delete-modal__content {
-    position: relative;
-    z-index: 1;
-    width: min(100%, 480px);
-    padding: 1.5rem;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: 0 1rem 3rem rgba(28, 25, 23, 0.22);
-}
-
-.experience-delete-modal__content h2 {
-    margin: 0 0 0.75rem;
-    font-family:
-        "Space Grotesk",
-        -apple-system,
-        sans-serif;
-    font-size: 1.5rem;
-}
-
-.experience-delete-modal__close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    border: 0;
-    padding: 0;
-    background: transparent;
-    color: var(--text-muted);
-    font-size: 1.8rem;
-    line-height: 1;
-    cursor: pointer;
-}
-
-.experience-delete-modal__actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
 }
 
 /*FOOTER*/
@@ -867,40 +755,40 @@ nav a:hover {
     width: 100%;
     }
 
-    .project-header .experience-header {
+    .add-button-group {
         align-items: flex-start;
         flex-direction: column;
     }
 
-    .project-add-button .experience-add-button {
+    .add-button {
         width: 100%;
         justify-content: center;
     }
 
-    .project-search .experience-search {
+    .search-bar {
         flex-direction: column;
     }
 
-    .project-search .experience-search .button {
+    .search-bar .button {
         width: 100%;
     }
 
-    .project-delete-modal .experience-delete-modal {
+    .delete-modal .experience-delete-modal {
         align-items: flex-end;
         padding: 0;
     }
 
-    .project-delete-modal__content .experience-delete-modal__content {
+    .delete-modal__content {
         width: 100%;
         padding: 1.25rem;
         border-radius: var(--radius) var(--radius) 0 0;
     }
 
-    .project-delete-modal__actions .experience-delete-modal__actions {
+    .delete-modal__actions {
         flex-direction: column-reverse;
     }
 
-    .project-delete-modal__actions .experience-delete-modal__actions .button {
+    .delete-modal__actions .button {
         width: 100%;
         text-align: center;
     }

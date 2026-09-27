@@ -7,9 +7,9 @@
                 <h1 class="experience-title">Experience</h1>
             </div>
 
-            <div class="experience-header container">
+            <div class="add-button-group container">
                 <a href="{% url 'main:create_experience' %}"
-                    class="button experience-add-button">
+                    class="button add-button add-button-experience button-color2">
                     <span aria-hidden="true">+</span>
                     Add Experience
                 </a>
@@ -17,14 +17,14 @@
 
             <form method="get"
                       action="{% url 'main:show_experience' %}"
-                      class="experience-search container">
+                      class="search-bar container">
                     <input type="search"
                            name="title"
                            value="{{ title_query }}"
                            placeholder="Find experience name"
-                           class="experience-search__input"
+                           class="search-bar__input"
                            aria-label="Find experience name">
-                    <button type="submit" class="button button-find">Find</button>
+                    <button type="submit" class="button find-button-experience button-color2">Find</button>
             </form>
 
             <div class="container experience-group">
@@ -45,7 +45,10 @@
                                 <p class="experience-status">Completed</p>
                             {% endif %}
                         </div>
-                        {% include "components/experience_delete_modal.html" with experience=experience %}
+                        <div class="actions-group">
+                            <a href="{% url 'main:edit_experience' experience.id %}" class="button button-color2">Edit</a>
+                            {% include "components/experience_delete_modal.html" with experience=experience %}
+                        </div>
                         {% empty %}
                         {% if title_query %}
                             <p class="empty-state">No experience is found.</p>

@@ -12,7 +12,7 @@ class Experience(models.Model):
         ("part-time", "Part-Time"),
         ("full-time", "Full-Time"),
         ("freelance", "Freelance"),
-        ("competetion", "Competition"),
+        ("competition", "Competition"),
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -52,3 +52,23 @@ class Project(models.Model):
         if self.ended_at is None:
             return True
         return self.ended_at > timezone.now()
+
+class Achievement(models.Model):
+    LEVEL_CHOICES = [ ('campus', 'Campus'), ('national', 'National'), ('international', 'International')]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    level = models.CharField(
+        choices=LEVEL_CHOICES,
+        default='campus',
+    )
+    achieved_at = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def is_top_tier(self):
+        if (self.level == 'national' or self.level == 'international'):
+            return True

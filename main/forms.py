@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.models import ModelForm
-from django.forms.widgets import TextInput, Textarea
-from main.models import Project, Experience
+from django.forms.widgets import TextInput, Textarea, DateInput, DateTimeInput
+from main.models import Project, Experience, Achievement
 
 
 class ProjectForm(ModelForm):
@@ -12,7 +12,7 @@ class ProjectForm(ModelForm):
         labels = {
             "title": "Project Name",
             "description": "Project Description",
-            "type": "Project Type (Personal/Group)",
+            "type": "Project Type",
             "tech_stack": "Technology Used",
         }
 
@@ -25,7 +25,7 @@ class ProjectForm(ModelForm):
             ),
             "type": TextInput(
                 attrs={
-                    "placeholder": "e.g., Personal/Group",
+                    "placeholder": "Personal/Group",
                 }
             ),
             "description": Textarea(
@@ -39,13 +39,13 @@ class ProjectForm(ModelForm):
                     "placeholder": "e.g., Django, Python, HTML, CSS",
                 }
             ),
-            "started_at": forms.DateTimeInput(
+            "started_at": DateTimeInput(
                 format='%Y-%m-%dT%H:%M',
                 attrs={
                     "type": "datetime-local", "class": "form-control"
                 }
             ),
-            "ended_at": forms.DateTimeInput(
+            "ended_at": DateTimeInput(
                 format='%Y-%m-%dT%H:%M',
                 attrs={
                     "type": "datetime-local", "class": "form-control"
@@ -80,6 +80,38 @@ class ExperienceForm(ModelForm):
                 attrs={
                     "placeholder": "Tell us about your experience",
                         "rows": 3,
+                }
+            ),
+        }
+
+class AchievementForm(ModelForm):
+    class Meta:
+        model = Achievement
+        fields = ["title", "description", "level", "achieved_at"]
+        labels = {
+            "title": "Achievement Name",
+            "description": "Achievement Description",
+            "level": "Achievement Level",
+            "achieved_at": "Achieved Time",
+        }
+        widgets = {
+            "title": TextInput(
+                attrs={
+                    "maxlength": 255,
+                }
+            ),
+            "description": Textarea(
+                attrs={
+                    "rows": 3,
+                }
+            ),
+            "level": TextInput(
+                attrs={}
+            ),
+            "achieved_at": DateInput(
+                format='%Y-%m-%d',
+                attrs={
+                   "type": "date",
                 }
             ),
         }

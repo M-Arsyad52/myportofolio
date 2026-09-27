@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block meta %}
+    <title>{{ page_title}} - {{ name }}</title>
+{% endblock meta %}
+
+{% block content %}
+    <main>
+        <section class="content-section">
+            <div class="container">
+                <h1>{{ page_title }}</h1>
+                <form method="post" class="card" novalidate>
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label }}
+                            {{ field }}
+                            {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                            {% for error in field.errors %}
+                                <p class="error">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    <button class="button" type="submit">Save</button>
+                    <a href="{% url 'main:show_achievement' %}">Cancel</a>
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

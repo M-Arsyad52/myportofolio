@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block meta %}
+    <title>{{ page_title}} - {{ name }}</title>
+{% endblock meta %}
+
+{% block content %}
+<main>
+    <section class="">
+        <div class="container">
+            <div class="page-heading">
+                <div><p class="section-kicker"><h1>Achievements</h1></div>
+                <a class="button" href="{% url 'main:create_achievement' %}">Add Achievement</a>
+            </div>
+            <form method="get" action="{% url 'main:show_achievement' %}">
+                <input type="search" name="title" value="{{ title_query }}" placeholder="Find achievement name">
+                <button type="submit">Find</button>
+                <a href="{% url 'main:show_achievement' %}">Clear Search</a>
+            </form>
+            <div class ="card-grid">
+                {% for achievement in achievement_list %}
+                    <div class="card">
+                        <h2>{{ achievement.title }}</h2>
+                        <p>{{ achievement.description }}</p>
+                        <p>{{ achievement.level }}</p>
+                        <p>{{ achievement.achieved_at }}</p>
+                        {% if achievement.is_top_tier %}
+                            <p>Top Tier Achievement</p>
+                        {% endif %}
+                    </div>
+                    <div class="actions">
+                        <a href="{% url 'main:edit_achievement' achievement.id %}">Edit</a>
+                        <form method="post" action="{% url 'main:delete_achievement' achievement.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                {% empty %}
+                    <p class="empty-state">No achievement has been added yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}

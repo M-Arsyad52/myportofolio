@@ -1,44 +1,53 @@
 {% extends 'base.html' %}
+
+{% block meta %}
+    <title>{{ page_title}} - {{ name }}</title>
+{% endblock meta %}
+
 {% block content %}
     <main>
-        <section id="projects">
-            <div class="projects-title-group">
-                <div class="projects-title-background"></div>
-                <h1 class="projects-title">Projects</h1>
+        <section id="project">
+            <div class="project-title-group">
+                <div class="project-title-background"></div>
+                <h1 class="project-title">Projects</h1>
             </div>
-            <div class="project-header container">
+            <div class="add-button-group container">
                 <a href="{% url 'main:create_project' %}"
-                    class="button project-add-button">
+                    class="button add-button button-color1">
                     <span aria-hidden="true">+</span>
                     Add Project
                 </a>
             </div>
             <form method="get"
-                      action="{% url 'main:show_project' %}"
-                      class="project-search container">
-                    <input type="search"
-                           name="title"
-                           value="{{ title_query }}"
-                           placeholder="Find project name"
-                           class="project-search__input"
-                           aria-label="Find project name">
-                    <button type="submit" class="button">Find</button>
+                    action="{% url 'main:show_project' %}"
+                    class="search-bar container">
+                <input type="search"
+                        name="title"
+                        value="{{ title_query }}"
+                        placeholder="Find project name"
+                        class="search-bar__input"
+                        aria-label="Find project name">
+                <button type="submit" class="button button-color1">Find</button>
             </form>
-            <div class="container projects-soup">
-                <div class="projects-list">
+            <div class="project-group container">
+                <div class="project-list">
                     {% for project in project_list %}
-                    <div class="projects-content">
-                        <h2 class="projects-content-title">{{ project.title }}</h2>
+                    <div class="project-content">
+                        <h2 class="project-content-title">{{ project.title }}</h2>
                         <h3>{{ project.type }} Project</h3>
                         <p>{{ project.tech_stack }}</p>
-                        <p class="projects-content-desc">{{ project.description }}</p>
+                        <p class="project-content-desc">{{ project.description }}</p>
                         {% if project.is_ongoing %}
-                                <p class="projects-status">Ongoing</p>
-                            {% else %}
-                                <p class="projects-status">Completed</p>
-                            {% endif %}
+                            <p class="project-status">Ongoing</p>
+                        {% else %}
+                            <p class="project-status">Completed</p>
+                        {% endif %}
                     </div>
-                    {% include "components/project_delete_modal.html" with project=project %}
+                    <div class="actions-group">
+                        <a href="{% url 'main:edit_project' project.id %}" class="button button-color1">Edit Project</a>
+                        {% include "components/project_delete_modal.html" with project=project %}
+                    </div>
+                    
                     {% empty %}
                         {% if title_query %}
                             <p class="empty-state-project">No project is found.</p>

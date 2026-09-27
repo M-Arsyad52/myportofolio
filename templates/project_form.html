@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
+
 {% block meta %}
-    <title>Add Project - {{ name }}</title>
+    <title> {{ page_title }} - {{ name }}</title>
 {% endblock meta %}
+
 {% block content %}
     <main>
         <section id="form">
@@ -22,7 +24,7 @@
                     {% endfor %}
                     <div class="form-button-group">
                         <button type="submit" class="button button-main">Add Project</button>
-                        <a href="{% url 'main:show_project' %}" class="button button-secondary">Cancel</a>
+                        <a href="{% url 'main:show_project' %}" class="button button-secondary button-color1">Cancel</a>
                     </div>
                 </form>
             </div>

@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from main.models import Experience, Project
+from main.models import Experience, Project, Achievement
 
 
 class MainTest(TestCase):
@@ -87,3 +87,24 @@ class ProjectTest(TestCase):
         response = self.client.get(reverse("main:show_project"))
     
         self.assertContains(response, "No project has been added yet.")
+
+class AchievementTest(TestCase):
+    def test_achievement_page_uses_correct_template(self):
+        response = self.client.get(reverse("main:show_achievement"))
+        self.assertEqual(response.status_code,200)
+        self.assertTemplateUsed(response, "achievement.html")
+
+    def test_certification_data_appears(self):
+        Achievement.objects.create(
+        title="test1",
+        description="This is a test",
+        level="campus",
+        achieved_at="2026-09-22"
+        )
+        response = self.client.get(reverse("main:show_achievement"))
+        self.assertContains(response, "test1")
+        self.assertContains(response, "This is a test") 
+
+    def test_empty_state_appears_when_no_data(self):
+        response = self.client.get(reverse("main:show_achievement"))
+        self.assertContains(response, "No achievement has been added yet.")
