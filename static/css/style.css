@@ -734,30 +734,48 @@ nav a:hover {
     display: inline;
 }
 
-.button-star {
+.button-star1, .button-star2 {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background: white;
 }
 
-.button-star.is-starred {
+.button-star1.is-starred {
     background: var(--sky);
     border: 2px solid white;
     color: white;
 }
 
-.star-count {
+.button-star2.is-starred {
+    background: white;
+    border: 2px solid var(--sky);
+    color: var(--sky);
+}
+
+.star-count1, .star-count2 {
     padding: 0.05rem 0.4rem;
     border-radius: 999px;
-    background: var(--sky);
-    color: white;
     font-size: 0.8rem;
 }
 
-.button-star.is-starred .star-count {
+.star-count1 {
+    background: var(--sky);
+    color: white;
+}
+
+.star-count2 {
     background: white;
     color: var(--sky);
+}
+
+.button-star1.is-starred .star-count1 {
+    background: white;
+    color: var(--sky);
+}
+
+.button-star2.is-starred .star-count2 {
+    background: var(--sky);
+    color: white;
 }
 
 /*FOOTER*/

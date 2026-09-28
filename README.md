@@ -49,3 +49,7 @@ The {% csrf_token %} is a security measure for any form with POST requests. It g
     5) The view wraps the JSON in an HttpResponse and sends it back over the internet to the browser.
 
 The reason serialization process is required because it acts as a translation step. It removes all the complex Python logic and converts the raw data (which are Python objects received from querying the database) into a standard text (JSON) that any system can receive and understand.
+
+
+### Assignment 4
+-Used AI only to know how to modify Group and User in Django Admin for the 'Editor' role task. Previously, tried to check through Django Documentation, but didn't manage to understand it. Therefore, used AI as an assistance. Other than that task, did not used AI to complete it.
