@@ -479,6 +479,9 @@ nav a:hover {
     transition: transform 0.2s ease;
 }
 
+.project-content:hover {
+    transform: scale(1.05);
+}
 
 .project-status {
     text-align: center;
@@ -719,6 +722,42 @@ nav a:hover {
 .delete-button-experience {
     background-color: var(--sky);
     color: white;
+}
+
+/*
+======
+ STAR
+======
+*/
+
+.star-form {
+    display: inline;
+}
+
+.button-star {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: white;
+}
+
+.button-star.is-starred {
+    background: var(--sky);
+    border: 2px solid white;
+    color: white;
+}
+
+.star-count {
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    background: var(--sky);
+    color: white;
+    font-size: 0.8rem;
+}
+
+.button-star.is-starred .star-count {
+    background: white;
+    color: var(--sky);
 }
 
 /*FOOTER*/

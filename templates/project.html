@@ -12,11 +12,13 @@
                 <h1 class="project-title">Projects</h1>
             </div>
             <div class="add-button-group container">
-                <a href="{% url 'main:create_project' %}"
-                    class="button add-button button-color1">
-                    <span aria-hidden="true">+</span>
-                    Add Project
-                </a>
+                {% if user.is_superuser %}
+                    <a href="{% url 'main:create_project' %}"
+                        class="button add-button button-color1">
+                        <span aria-hidden="true">+</span>
+                        Add Project
+                    </a>
+                {% endif %}
             </div>
             <form method="get"
                     action="{% url 'main:show_project' %}"
@@ -45,7 +47,10 @@
                     </div>
                     <div class="actions-group">
                         <a href="{% url 'main:edit_project' project.id %}" class="button button-color1">Edit Project</a>
-                        {% include "components/project_delete_modal.html" with project=project %}
+                        {% include "components/project_star.html" with project=project %}
+                        {% if user.is_superuser %}
+                            {% include "components/project_delete_modal.html" with project=project %}
+                        {% endif %}
                     </div>
                     
                     {% empty %}
