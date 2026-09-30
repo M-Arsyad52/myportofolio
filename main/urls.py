@@ -24,6 +24,8 @@ from main.views import (show_main,
                         register,
                         login_user,
                         logout_user,
+
+                        create_project_ajax,
                         )
 
 app_name = "main"
@@ -54,4 +56,6 @@ urlpatterns = [
     path("register/", register, name="register"),
     path("login/", login_user, name="login"),
     path("logout/", logout_user, name="logout"),
+
+    path("projects/add-ajax/", create_project_ajax, name="create_project_ajax"),
 ]

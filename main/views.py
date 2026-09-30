@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied        
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 import datetime
 
@@ -132,13 +132,7 @@ def toggle_star_experience(request, experience_id):
 # PROJECTS
 #==========
 def show_project(request):
-    json_response = get_project_json(request)
 
-    projects = serializers.deserialize(
-        "json",
-        json_response.content.decode("utf-8"),
-    )
-    projects = [item.object for item in projects]
     title_query = request.GET.get("title", "").strip()
     
     context = {
@@ -146,7 +140,7 @@ def show_project(request):
         "name": "Arsyad",
         "page_title": "Project List",
         "title_query": title_query,
-        "project_list": projects,
+        "form": ProjectForm()
     }
     return render(request, "project.html", context)
 
@@ -171,13 +165,34 @@ def create_project(request):
 
 def get_project_json(request):
     title_query = request.GET.get("title", "").strip()
-    projects = Project.objects.all()
+    projects = Project.objects.prefetch_related('starred_by').all()
 
     if title_query:
         projects = projects.filter(title__icontains=title_query)
 
-    data = serializers.serialize("json", projects, use_natural_foreign_keys=True)
-    return HttpResponse(data, content_type="application/json")
+    # Manually build the JSON data so we can add the Star logic
+    data = []
+    for project in projects:
+        starred_users = project.starred_by.all()
+        is_started = request.user in starred_users if request.user.is_authenticate else False
+        starred_by_names = ", ".join([u.username for u in starred_users])
+
+        data.append({
+            "pk": str(project.id),
+            "fields": {
+                "title": project.title,
+                "type": project.type,
+                "description": project.description,
+                "tech_stack": project.tech_stack,
+                "started_at": project.started_at,
+                "ended_at": project.ended_at,
+                "star_count": starred_users.count(),
+                "is_starred": is_started,
+                "starred_by_names": starred_by_names,
+            }
+        })
+
+    return JsonResponse(data, safe=False)
 
 @login_required(login_url="/login/")
 def delete_project(request, project_id):
@@ -335,3 +350,24 @@ def logout_user(request):
     response = redirect("main:show_main")
     response.delete_cookie('last_login')
     return response
+
+
+
+@require_POST
+def create_project_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Only the portfolio owner can add projects."},
+            status=403,
+        )
+
+    form = ProjectForm(request.POST)
+    if form.is_valid():
+        project = form.save()
+        return JsonResponse(
+            {"message": "Project added successfully.", "pk": str(project.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
+
