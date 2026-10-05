@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required, permission_required
+from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied        
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
@@ -99,12 +100,12 @@ def delete_experience(request, experience_id):
 
 @permission_required('main.change_experience', raise_exception=True)
 def edit_experience(request, experience_id):
-    experience = get_object_or_404(Experience, experience_id)
+    experience = get_object_or_404(Experience, pk=experience_id)
     form = ExperienceForm(request.POST or None, instance=experience)
 
     if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success("Experience updated successfully")
+        messages.success(request, "Experience updated successfully")
         return redirect("main:show_experience")
 
     context = {
@@ -113,7 +114,7 @@ def edit_experience(request, experience_id):
         "form": form,
     }
 
-    return render(request, "project.html", context)
+    return render(request, "experience_form.html", context)
 
 @login_required(login_url="/login/")
 def toggle_star_experience(request, experience_id):
@@ -132,7 +133,6 @@ def toggle_star_experience(request, experience_id):
 # PROJECTS
 #==========
 def show_project(request):
-
     title_query = request.GET.get("title", "").strip()
     
     context = {
@@ -140,7 +140,7 @@ def show_project(request):
         "name": "Arsyad",
         "page_title": "Project List",
         "title_query": title_query,
-        "form": ProjectForm()
+        "form": ProjectForm(),
     }
     return render(request, "project.html", context)
 
@@ -174,7 +174,7 @@ def get_project_json(request):
     data = []
     for project in projects:
         starred_users = project.starred_by.all()
-        is_started = request.user in starred_users if request.user.is_authenticate else False
+        is_started = request.user in starred_users if request.user.is_authenticated else False
         starred_by_names = ", ".join([u.username for u in starred_users])
 
         data.append({
@@ -236,6 +236,24 @@ def toggle_star_project(request,project_id):
             project.starred_by.add(request.user)
 
     return redirect("main:show_project")
+
+@require_POST
+def create_project_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Only the portfolio owner can add projects."},
+            status=403,
+        )
+
+    form = ProjectForm(request.POST)
+    if form.is_valid():
+        project = form.save()
+        return JsonResponse(
+            {"message": "Project added successfully.", "pk": str(project.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
 
 #==============
 # ACHIEVEMENTS
@@ -350,24 +368,4 @@ def logout_user(request):
     response = redirect("main:show_main")
     response.delete_cookie('last_login')
     return response
-
-
-
-@require_POST
-def create_project_ajax(request):
-    if not request.user.is_superuser:
-        return JsonResponse(
-            {"message": "Only the portfolio owner can add projects."},
-            status=403,
-        )
-
-    form = ProjectForm(request.POST)
-    if form.is_valid():
-        project = form.save()
-        return JsonResponse(
-            {"message": "Project added successfully.", "pk": str(project.id)},
-            status=201,
-        )
-
-    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
 

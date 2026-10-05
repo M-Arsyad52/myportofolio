@@ -14,6 +14,7 @@ from main.views import (show_main,
                         delete_project, 
                         edit_project,
                         toggle_star_project,
+                        create_project_ajax,
 
                         show_achievement,
                         create_achievement,
@@ -25,7 +26,6 @@ from main.views import (show_main,
                         login_user,
                         logout_user,
 
-                        create_project_ajax,
                         )
 
 app_name = "main"
@@ -46,6 +46,7 @@ urlpatterns = [
     path("project/<uuid:project_id>/delete/", delete_project, name="delete_project"),
     path("edit-project/<uuid:project_id>/", edit_project, name="edit_project"),
     path("project/<uuid:project_id>/star/", toggle_star_project, name="toggle_star_project"),
+    path("project/add-ajax/", create_project_ajax, name="create_project_ajax"),
 
     path("achievement/", show_achievement, name="show_achievement"),
     path("achievement/add", create_achievement, name="create_achievement"),
@@ -56,6 +57,4 @@ urlpatterns = [
     path("register/", register, name="register"),
     path("login/", login_user, name="login"),
     path("logout/", logout_user, name="logout"),
-
-    path("projects/add-ajax/", create_project_ajax, name="create_project_ajax"),
 ]
