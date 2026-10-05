@@ -52,4 +52,15 @@ The reason serialization process is required because it acts as a translation st
 
 
 ### Assignment 4
+
 -Used AI only to know how to modify Group and User in Django Admin for the 'Editor' role task. Previously, tried to check through Django Documentation, but didn't manage to understand it. Therefore, used AI as an assistance. Other than that task, did not used AI to complete it.
+
+### Assignment 5
+
+-Did not use AI
+
+1. Debouncing is a concept that is used to combine an operation that occurs multiple times (where they are closely together) into one part. It's important to be used in a search feature to reduce the numbers of requests when multiple keystrokes is done. Without it, every keystrokes done would cause sending requests equivalently to that number of keystrokes, where it could overload the server. With Debouncing, sending a request will not based on the the number of keystrokes done, but based on a time interval that waits for a user to stop giving inputs.
+
+2. The 'await' is a keyword that is used inside an async function. Using it allows to wait a certain process in that line of code to finish so that the variable will retreive the data, before moving on to the next line of code. Without it, the certain process in that line will not be able to finish, which causes the variable to not retrieve the correct data that would cause data errors later on. 
+
+3. XSS or Cross Site Scripting is a vulnerability that allows an attacker to inject JavaScript codes into a client, where it will get executed. It allows the attacker to steal session cookies or manipulate the web page. Data that is displayed through AJAX is more vulnerable to this attack since it lacks the safety nets when handling with data on the client side. On the other hand, displaying data through Django is more safe because in the rendering process, Django applies the escape HTML process, which converts dangerous characters that is used to attack into safe HTML entities, where the client will interpret these entities as normal plain texts.  
