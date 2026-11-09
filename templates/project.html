@@ -58,6 +58,7 @@
 
     {% if user.is_superuser %}
         {% include "components/project_form_modal.html" %}
+        {% include "components/project_edit_form_modal.html" %}
     {% endif %}
 
     {% csrf_token %}
@@ -105,25 +106,98 @@
 
         function buildProjectCardElement(project) {
             const article = document.createElement('article');
-            article.className = 'experience-card';
-            const image = project.project_image_url
-                ? `<img src="${escapeHtml(project.project_image_url)}" alt="${escapeHtml(project.title)}" class="project-image">` : '';
-            const link = project.project_url
-                ? `<a href="${escapeHtml(project.project_url)}" class="button">Open project</a>` : '';
+            article.className = 'project-list';
+            
             const star = IS_AUTHENTICATED
-                ? `<button type="button" class="button button-star${project.is_starred ? ' is-starred' : ''}"
-                    data-action="star" data-id="${escapeHtml(project.id)}"
+                ?`<button type="button" class="button button-color1 button-star1${project.is_starred ? ' is-starred' : ''}"
+                    data-action="star" data-id="${escapeHtml(project.id)}"           
                     title="${escapeHtml(project.starred_by_names)}">
-                    ${project.is_starred ? 'Unstar' : 'Star'} (${project.star_count})</button>`
-                : `<a href="{% url 'main:login' %}" class="button">Login to star (${project.star_count})</a>`;
+                        ${project.is_starred ? 'Unstar' : 'Star'}
+                        <span class="star-count1">${escapeHtml(project.star_count)}</span></button>`
+                : `<a href="{% url 'main:login' %}" class="button button-color1> Login to star (${project.star_count})</a>`
+            
+            const edit = IS_SUPERUSER
+                ? `<button type="button" 
+                        class="button button-color1" 
+                        data-action="edit" 
+                        data-id="${escapeHtml(project.id)}"
+                        data-title="${escapeHtml(project.title)}"
+                        data-type="${escapeHtml(project.type)}"
+                        data-tech-stack="${escapeHtml(project.tech_stack)}"
+                        data-description="${escapeHtml(project.description)}">
+                    Edit
+                </button>`
+                : '';
+            
             const remove = IS_SUPERUSER
-                ? `<button type="button" class="button button-danger" data-action="delete"
-                    data-id="${escapeHtml(project.id)}">Delete</button>` : '';
-            article.innerHTML = `${image}<h2>${escapeHtml(project.title)}</h2>
-                <span class="experience-category">${escapeHtml(project.tech_stack)}</span>
-                <p class="experience-description">${escapeHtml(project.description)}</p>
-                <div class="project-card-actions"><div class="project-actions">
-                ${link}${star}${remove}</div></div>`;
+                ? `<button type="button"
+                        class="button button-danger"
+                        popovertarget="delete-project-${escapeHtml(project.id)}"
+                        aria-label="Delete ${escapeHtml(project.title)}"
+                        title="Delete project">
+                    Delete Project
+                </button>
+
+                <div id="delete-project-${escapeHtml(project.id)}"
+                    class="delete-modal"
+                    popover="auto"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="delete-project-title-${escapeHtml(project.id)}">
+                    <button type="button"
+                            class="delete-modal__backdrop"
+                            popovertarget="delete-project-${escapeHtml(project.id)}"
+                            popovertargetaction="hide"
+                            aria-label="Close delete confirmation"></button>
+                    <div class="delete-modal__content">
+                        <button type="button"
+                                class="delete-modal__close"
+                                popovertarget="delete-project-${escapeHtml(project.id)}"
+                                popovertargetaction="hide"
+                                aria-label="Close delete confirmation">×</button>
+                        <h2 id="delete-project-title-${escapeHtml(project.id)}">Delete Project?</h2>
+                        <p>
+                            Are you certain you want to delete: <br>
+                            <strong>${escapeHtml(project.title)}</strong>?
+                        </p>
+                        <div class="delete-modal__actions">
+                            <button type="button"
+                                    class="button button-secondary button-color1"
+                                    popovertarget="delete-project-${escapeHtml(project.id)}"
+                                    popovertargetaction="hide">Cancel</button>
+                            
+                            <button type="button" 
+                                    class="button button-danger" 
+                                    data-action="delete" 
+                                    data-id="${escapeHtml(project.id)}">
+                                Yes, Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>` 
+                : '';
+            
+            const statusHtml = project.is_ongoing 
+                ? `<p class="project-status">Ongoing</p>` 
+                : `<p class="project-status">Completed</p>`;
+
+            article.innerHTML = `
+                <div class="project-content">
+                    <h2 class="project-content-title">${escapeHtml(project.title)}</h2>
+                    <h3>${escapeHtml(project.type)} Project</h3>
+                    <p>${escapeHtml(project.tech_stack)}</p>
+                    <p class="project-content-desc">${escapeHtml(project.description)}</p>
+                    ${statusHtml}
+                </div>
+                    
+                <div class="actions-group">
+                    <div class="star-form">
+                        ${star}
+                    </div>
+                    ${edit}
+                    ${remove}
+                </div>
+            `;
             return article;
         }
 
@@ -197,7 +271,21 @@
             const button = event.target.closest('button[data-action]');
             if (!button || button.disabled) return;
             const action = button.dataset.action;
-            if (action === 'delete' && !window.confirm('Delete this project?')) return;
+            
+            if (action === 'edit') {
+                const editForm = document.getElementById('edit-project-form');
+                
+                editForm.querySelector('[name="id"]').value = button.dataset.id;
+                editForm.querySelector('[name="title"]').value = button.dataset.title;
+                editForm.querySelector('[name="type"]').value = button.dataset.type;
+                editForm.querySelector('[name="tech_stack"]').value = button.dataset.techStack;
+                editForm.querySelector('[name="description"]').value = button.dataset.description;
+                
+                document.getElementById('edit-project-modal').showPopover();
+                return;
+            }
+
+            //if (action === 'delete' && !window.confirm('Delete this project?')) return;
             button.disabled = true;
             try {
                 const pattern = action === 'star' ? STAR_PROJECT_ENDPOINT : DETAIL_PROJECT_ENDPOINT;
@@ -222,6 +310,40 @@
             fetchProjects(searchInput.value.trim());
         });
         fetchProjects(searchInput.value.trim());
+
+
+        const editProjectForm = document.getElementById('edit-project-form');
+
+        async function updateProject(event) {
+            event.preventDefault();
+            const submitButton = editProjectForm.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            
+            try {
+                const fields = new FormData(editProjectForm);
+                const projectId = fields.get('id');
+                
+                const payload = Object.fromEntries([
+                    'title', 'type', 'tech_stack', 'description'
+                ].map(name => [name, fields.get(name)]));
+
+                const url = projectEndpoint(DETAIL_PROJECT_ENDPOINT, projectId);
+                
+                await writeProject(url, 'PATCH', payload);
+                
+                editProjectForm.reset();
+                document.getElementById('edit-project-modal').hidePopover();
+                showToast('Success', 'Project updated.', 'success');
+                
+                await fetchProjects(searchInput.value.trim());
+            } catch (error) {
+                showToast('Could not update project', error.message, 'error');
+            } finally {
+                submitButton.disabled = false;
+            }
+        }
+
+        if (editProjectForm) editProjectForm.addEventListener('submit', updateProject);
     </script>
 
     <!--

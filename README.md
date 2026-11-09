@@ -55,6 +55,7 @@ The reason serialization process is required because it acts as a translation st
 
 -Used AI only to know how to modify Group and User in Django Admin for the 'Editor' role task. Previously, tried to check through Django Documentation, but didn't manage to understand it. Therefore, used AI as an assistance. Other than that task, did not used AI to complete it.
 
+
 ### Assignment 5
 
 -Did not use AI
@@ -64,3 +65,22 @@ The reason serialization process is required because it acts as a translation st
 2. The 'await' is a keyword that is used inside an async function. Using it allows to wait a certain process in that line of code to finish so that the variable will retreive the data, before moving on to the next line of code. Without it, the certain process in that line will not be able to finish, which causes the variable to not retrieve the correct data that would cause data errors later on. 
 
 3. XSS or Cross Site Scripting is a vulnerability that allows an attacker to inject JavaScript codes into a client, where it will get executed. It allows the attacker to steal session cookies or manipulate the web page. Data that is displayed through AJAX is more vulnerable to this attack since it lacks the safety nets when handling with data on the client side. On the other hand, displaying data through Django is more safe because in the rendering process, Django applies the escape HTML process, which converts dangerous characters that is used to attack into safe HTML entities, where the client will interpret these entities as normal plain texts.  
+
+
+### Assignment 6
+
+1. REST is an architectural style for designing web APIs. Returning JSON is not enough to be RESTful because the API must be stateless, use resource-oriented URLs, and utilize standard HTTP methods and status codes to manipulate the resources.
+
+PUT replaces an entire resource. For example, updating a project by sending the entire project object, therefore overwriting the old one. On the other hand, PATCH partially updates a resource. For example, sending only {"title": "New title"} to update one specific field.
+
+2. The serializer in DRF converts Django models into Python datatypes that can be rendered into JSON. It also handles the deserializing by converting incoming JSON back into Django models. 
+
+Compared to manually assembling dictionaries, the serializer of DRF can automatically validate incoming data, handle complex model relationships, and enforce field constraints.
+
+3. Authentication checks whether the user is logged in or not, while authorization creates boundaries on what a user is allowed to do. 
+
+Access rights must be checked on the server using permission classes because hiding a button in the template is velnurable to attacks. An attacker can bypass the frontend and send unauthorized HTTP requests to the API.
+
+4. SessionAuthentication relies on browser cookies. If the user vistis a malicious website, the CSRF token is used to block any forged requests sent from that site to the API.
+
+The force_authenticate forces a user into the request context, which bypasses standard authentication backends. Therefore, it bypass the CSRF check entirely, making it useless for proving that CSRF protection is actually active.
