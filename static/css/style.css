@@ -73,7 +73,7 @@ nav a:hover {
 #jumbotron {
     width: 100%;
     min-height: 100vh;
-    background-color: var(--sky);
+    background-image: linear-gradient(to bottom, var(--sky) 20%, white 100%);
     align-content: center;
     margin-bottom: 3rem;
     
